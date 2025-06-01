@@ -145,7 +145,10 @@ function LoginPage() {
               }}
             />
             <button
-              onClick={handleLogin}
+              onClick={() => {
+                      console.log("✅ 버튼 클릭됨");
+                      handleLogin();
+                    }}
               style={{
                 width: '96%',
                 padding: '12px',
