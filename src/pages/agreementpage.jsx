@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
+const API_URL = import.meta.env.VITE_API_BASE_URL;
+
 export default function JoinRequestListPage() {
   const { clubName } = useParams(); // ✅ URL에서 clubName 추출
   console.log("📤 [프론트] clubName from useParams:", clubName);
