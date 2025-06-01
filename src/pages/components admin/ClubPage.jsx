@@ -3,6 +3,7 @@ import SockJS from 'sockjs-client';
 import { Client } from '@stomp/stompjs';
 import { useNavigate } from 'react-router-dom';
 import NoticeListPage from "../components member/NoticeListPage";
+console.log("✅ members 값:", members, "타입:", typeof members);
 
 export default function ClubPage({
   clubName,
