@@ -1,5 +1,5 @@
 import axios from "axios";
-
+console.log("✅ API_URL:", import.meta.env.VITE_API_BASE_URL);
 // 환경변수에서 API 주소를 불러오되, fallback도 지정함 (로컬용)
 const API_URL = import.meta.env.VITE_API_BASE_URL + "/api/notices";
 
