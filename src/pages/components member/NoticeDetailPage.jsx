@@ -7,12 +7,8 @@ const NoticeDetailPage = () => {
   const location = useLocation();
   const clubName = decodeURIComponent(rawClubName).trim();
   const [notice, setNotice] = useState(null);
+  const [error, setError] = useState(null);
 
-  // 🔍 디버깅용 콘솔
-  console.log("📍 current pathname:", window.location.pathname);
-  console.log("📍 location.state:", location.state);
-
-  // ✅ 돌아갈 경로 판단
   const isAdminPage =
     location.state?.fromAdmin === true ||
     window.location.pathname.includes("/adminnotice");
@@ -22,14 +18,24 @@ const NoticeDetailPage = () => {
     : `/memberpage/${encodeURIComponent(clubName)}`;
 
   useEffect(() => {
-    getNoticeDetail(clubName, noticeId).then(setNotice);
+    getNoticeDetail(clubName, noticeId)
+      .then((data) => {
+        if (!data || !data.title || !data.content) {
+          throw new Error("공지사항 데이터가 올바르지 않습니다.");
+        }
+        setNotice(data);
+      })
+      .catch((err) => {
+        console.error(err);
+        setError("공지사항을 불러오지 못했습니다.");
+      });
   }, [clubName, noticeId]);
 
-  if (!notice) return <div>Loading...</div>;
+  if (error) return <div style={{ padding: "2rem", color: "red" }}>{error}</div>;
+  if (!notice) return <div style={{ padding: "2rem" }}>Loading...</div>;
 
   return (
     <div style={{ maxWidth: '800px', margin: '2rem auto', padding: '1rem' }}>
-      {/* ← 돌아가기 링크 */}
       <Link to={backUrl}>
         <span style={{ color: '#3b82f6', textDecoration: 'underline', fontSize: '0.9rem' }}>
           ← 돌아가기
@@ -45,15 +51,12 @@ const NoticeDetailPage = () => {
           marginTop: '1rem',
         }}
       >
-        {/* 제목 */}
         <h2 style={{ fontWeight: 'bold', fontSize: '1.5rem', marginBottom: '0.5rem' }}>
-          {notice.title}
+          {notice.title || "제목 없음"}
         </h2>
 
-        {/* 구분선 */}
         <hr style={{ marginBottom: '1.5rem', border: 'none', borderTop: '1px solid #e5e7eb' }} />
 
-        {/* 본문 내용 */}
         <pre
           style={{
             whiteSpace: 'pre-wrap',
@@ -63,7 +66,7 @@ const NoticeDetailPage = () => {
             color: '#374151',
           }}
         >
-          {notice.content}
+          {notice.content || "내용 없음"}
         </pre>
       </div>
     </div>
@@ -71,3 +74,4 @@ const NoticeDetailPage = () => {
 };
 
 export default NoticeDetailPage;
+
