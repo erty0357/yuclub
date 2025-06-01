@@ -26,6 +26,7 @@ const clubAdminDataMap = {
       { name: "김철수", grade:"2학년", major: "경제학과", phone: "010-xxxx-xxxx" },
       { name: "김예지", grade:"1학년", major: "컴퓨터공학과", phone: "010-xxxx-xxxx" },
     ],
+    members: []
   
   },
   
@@ -55,7 +56,7 @@ const clubAdminDataMap = {
       { name: "김철수", grade:"2학년", major: "경제학과", phone: "010-xxxx-xxxx" },
       { name: "김예지", grade:"1학년", major: "컴퓨터공학과", phone: "010-xxxx-xxxx" },
     ],
-  
+  members: []
   },
   
   "G.F.C": {
@@ -84,6 +85,7 @@ const clubAdminDataMap = {
       { name: "김철수", grade:"2학년", major: "경제학과", phone: "010-xxxx-xxxx" },
       { name: "김예지", grade:"1학년", major: "컴퓨터공학과", phone: "010-xxxx-xxxx" },
     ],
+    members: []
   },
   
   "아뉴스":  {
@@ -113,6 +115,7 @@ const clubAdminDataMap = {
       { name: "김철수", grade:"2학년", major: "경제학과", phone: "010-xxxx-xxxx" },
       { name: "김예지", grade:"1학년", major: "컴퓨터공학과", phone: "010-xxxx-xxxx" },
     ],
+    members: []
   },
   
   "KABS": {
@@ -140,6 +143,7 @@ const clubAdminDataMap = {
       { name: "김철수", grade:"2학년", major: "경제학과", phone: "010-xxxx-xxxx" },
       { name: "김예지", grade:"1학년", major: "컴퓨터공학과", phone: "010-xxxx-xxxx" },
     ],
+    members: []
   },
   
   "그리니치": {
@@ -167,6 +171,7 @@ const clubAdminDataMap = {
       { name: "김철수", grade:"2학년", major: "경제학과", phone: "010-xxxx-xxxx" },
       { name: "김예지", grade:"1학년", major: "컴퓨터공학과", phone: "010-xxxx-xxxx" },
     ],
+    members: []
   },
   
   "4-H":  {
@@ -196,6 +201,7 @@ const clubAdminDataMap = {
       { name: "김철수", grade:"2학년", major: "경제학과", phone: "010-xxxx-xxxx" },
       { name: "김예지", grade:"1학년", major: "컴퓨터공학과", phone: "010-xxxx-xxxx" },
     ],
+    members: []
   
   },
   
@@ -230,6 +236,7 @@ const clubAdminDataMap = {
       { name: "김철수", grade:"2학년", major: "경제학과", phone: "010-xxxx-xxxx" },
       { name: "김예지", grade:"1학년", major: "컴퓨터공학과", phone: "010-xxxx-xxxx" },
     ],
+    members: []
   
   }
 };  
