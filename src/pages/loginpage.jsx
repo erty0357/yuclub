@@ -66,8 +66,7 @@ function LoginPage() {
             position: 'absolute',
             top: 0,
             left: 0,
-            zIndex: -1,
-            pointerEvents: 'none', // 👈 클릭 막지 않도록!
+            zIndex: 0,
           }}
         />
 
