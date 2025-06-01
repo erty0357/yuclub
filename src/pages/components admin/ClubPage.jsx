@@ -31,7 +31,7 @@ export default function ClubPage({
         setNotifications(initial);
       });
 
-    const socket = new SockJS('/ws');
+    const socket = new SockJS(`${import.meta.env.VITE_API_BASE_URL}/ws`);
     const client = new Client({
       webSocketFactory: () => socket,
       onConnect: () => {
