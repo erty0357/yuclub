@@ -15,7 +15,6 @@ export default function ClubPage({
   officers,
   notices,
   theme = { titleColor: '#ffffff', subtitleColor: '#cccccc' },
-  members = []
 }) {
   const navigate = useNavigate();
   const [notifications, setNotifications] = useState([]);
