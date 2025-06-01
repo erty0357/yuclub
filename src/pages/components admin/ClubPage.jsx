@@ -86,21 +86,25 @@ export default function ClubPage({
         {/* 왼쪽 박스 */}
         <div style={{ flex: 1, backgroundColor: '#f3f4f6', padding: '1.5rem', borderRadius: '12px', border: '1px solid #ccc' }}>
           <h2>📌 모집대상: <span style={{ fontWeight: 'normal' }}>영남대 재학생</span></h2>
+
           <h3 style={{ marginTop: '1rem' }}>📅 주요활동 및 행사</h3>
           <ul>
-            {Array.isArray(activities) && activities.map((item, idx) => (
+            {activities.map((item, idx) => (
               <li key={idx}>- {item}</li>
             ))}
           </ul>
+
           <h3 style={{ marginTop: '1rem' }}>❓ 질문</h3>
-          {(Array.isArray(members) ? members : []).map((member, idx) => (
+          {faq.map((item, idx) => (
             <div key={idx} style={{ marginBottom: '1rem' }}>
               <p style={{ fontWeight: 'bold' }}>- {item.q}</p>
               <p style={{ color: '#4b5563', whiteSpace: 'pre-line' }}>{item.a}</p>
             </div>
           ))}
+
           <h3>💰 회비</h3>
           <p>{fee}</p>
+
           <h3>📝 면접</h3>
           <p>{interview}</p>
         </div>
@@ -139,7 +143,7 @@ export default function ClubPage({
 
           <div style={{ marginTop: '1rem', border: '2px solid #333', borderRadius: '12px', padding: '1rem', maxHeight: '300px', overflowY: 'auto' }}>
             <h3 style={{ textAlign: 'center', fontSize: '1.25rem', fontWeight: 'bold' }}>회원 목록</h3>
-            {Array.isArray(members) && members.map((member, idx) => (
+            {members.map((member, idx) => (
               <div key={idx} style={{ marginBottom: '1rem', padding: '0.75rem', backgroundColor: '#f9fafb', borderRadius: '8px', border: '1px solid #ccc' }}>
                 <p><strong>이름:</strong> {member.name}</p>
                 <p><strong>학년:</strong> {member.grade}</p>
@@ -166,5 +170,6 @@ export default function ClubPage({
     </div>
   );
 }
+
 
 
