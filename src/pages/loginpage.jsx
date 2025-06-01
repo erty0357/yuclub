@@ -17,6 +17,8 @@ function LoginPage() {
       });
 
       const role = res.data.role;
+
+      localStorage.setItem('token', 'true');
       localStorage.setItem('userRole', role);
       localStorage.setItem('user', JSON.stringify({ userId: id }));
 
