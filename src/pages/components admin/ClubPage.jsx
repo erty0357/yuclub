@@ -24,7 +24,7 @@ export default function ClubPage({
   useEffect(() => {
     const normalizedClubName = clubName.toLowerCase().replace(/\s+/g, '-');
 
-    fetch(`/api/join-requests/${normalizedClubName}`)
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/api/join-requests/${normalizedClubName}`)
       .then(res => res.json())
       .then(data => {
         const initial = data.map(req => req.name + "님이 가입 신청서를 보냈습니다!");
@@ -46,7 +46,7 @@ export default function ClubPage({
               return [...prev, payload.content];
             });
 
-            fetch(`/api/join-requests/${normalizedClubName}`)
+            fetch(`${import.meta.env.VITE_API_BASE_URL}/api/join-requests/${normalizedClubName}`)
               .then(res => res.json())
               .then(data => {
                 const updated = data.map(req => req.name + "님이 가입 신청서를 보냈습니다!");
