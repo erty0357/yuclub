@@ -37,7 +37,7 @@ export default function ClubPage({
         return;
       }
 
-      const res = await axios.get(`/api/clubs/${encodeURIComponent(clubName)}/members/status`, {
+      const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/clubs/${encodeURIComponent(clubName)}/members/status`, {
         params: { userId: user.userId } // ✅ localStorage 기준으로 userId 전달
       });
       setIsMemberState(res.data.isMember);
