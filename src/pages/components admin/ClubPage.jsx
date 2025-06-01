@@ -14,7 +14,7 @@ export default function ClubPage({
   interview,
   officers,
   notices,
-  members = []
+  members = [],
   theme = { titleColor: '#ffffff', subtitleColor: '#cccccc' },
 }) {
   const navigate = useNavigate();
