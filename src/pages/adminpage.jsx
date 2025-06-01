@@ -15,7 +15,7 @@ const ClubAdminPage = () => {
   // ✅ 1. 동아리 데이터 가져오기
   useEffect(() => {
     const role = localStorage.getItem('userRole');
-    axios.get(`/api/clubs/${encodeURIComponent(clubName)}?role=${role}`)
+    axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/clubs/${encodeURIComponent(clubName)}?role=${role}`)
       .then(res => setClubData(res.data))
       .catch(err => {
         alert('동아리 정보를 불러오지 못했습니다.');
@@ -24,7 +24,7 @@ const ClubAdminPage = () => {
 
   // ✅ 2. 회원 목록 가져오기
   useEffect(() => {
-    axios.get(`/api/clubs/${decoded}/members`)
+    axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/clubs/${decoded}/members`)
        .then(res => {
       console.log("✅ 관리자 회원 목록 응답:", res.data);
       setMembers(res.data);
