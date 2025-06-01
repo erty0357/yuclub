@@ -12,7 +12,13 @@ const NoticeListPage = () => {
 
   useEffect(() => {
     console.log("📦 요청된 clubName:", clubName);
-    getNotices(clubName).then(setNotices);
+    getNotices(clubName).then((data) => {
+      if (Array.isArray(data)) {
+        setNotices(data);
+      } else {
+        setNotices([]); // 방어 처리
+      }
+    });
   }, [clubName]);
 
   const handleDelete = async (noticeId) => {
@@ -30,12 +36,12 @@ const NoticeListPage = () => {
   };
 
   const isAdmin = window.location.pathname.includes("/adminpage");
-  
+
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <h4>📢 공지사항</h4>
-        {window.location.pathname.includes("/adminpage") && (
+        {isAdmin && (
           <Link to={`/adminnotice/${encodeURIComponent(clubName)}/create`}>
             <button
               style={{
@@ -66,7 +72,7 @@ const NoticeListPage = () => {
         }}
       >
         <ul style={{ listStyle: 'none', paddingLeft: 0, margin: 0 }}>
-          {notices.length > 0 ? (
+          {Array.isArray(notices) && notices.length > 0 ? (
             notices.map((notice) => (
               <li
                 key={notice.id}
@@ -79,19 +85,17 @@ const NoticeListPage = () => {
               >
                 <Link
                   to={{
-                    pathname: window.location.pathname.includes("/adminpage")
+                    pathname: isAdmin
                       ? `/adminnotice/${encodeURIComponent(clubName)}/${notice.id}`
                       : `/notice/${encodeURIComponent(clubName)}/${notice.id}`,
-                    state: window.location.pathname.includes("/adminpage")
-                      ? { fromAdmin: true }
-                      : {},
+                    state: isAdmin ? { fromAdmin: true } : {},
                   }}
                   style={{ flex: 1, textDecoration: 'underline', color: '#2563eb' }}
                 >
                   {notice.title}
                 </Link>
 
-                {window.location.pathname.includes("/adminpage") && (
+                {isAdmin && (
                   <button
                     onClick={() => handleDelete(notice.id)}
                     style={{
