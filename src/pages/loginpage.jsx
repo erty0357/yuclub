@@ -11,7 +11,7 @@ function LoginPage() {
 
   const handleLogin = async () => {
     try {
-      const res = await axios.post('/api/login', {
+      const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/login`, {
         username: id,
         password: pw,
       });
