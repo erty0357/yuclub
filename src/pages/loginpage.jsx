@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import logo from '/yu_logo.png';
 
+console.log("✅ LoginPage 렌더됨");
 function LoginPage() {
   const [id, setId] = useState('');
   const [pw, setPw] = useState('');
