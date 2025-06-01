@@ -12,7 +12,7 @@ export default function ClubPage({
   faq = [],
   fee,
   interview,
-  officers,
+  officers = [],
   notices,
   members = [],
   theme = { titleColor: '#ffffff', subtitleColor: '#cccccc' },
