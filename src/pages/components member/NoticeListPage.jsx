@@ -14,9 +14,10 @@ const NoticeListPage = () => {
     console.log("📦 요청된 clubName:", clubName);
     getNotices(clubName).then((data) => {
       if (Array.isArray(data)) {
+        console.log("📬 받은 공지 배열:", data); // 🔍 전체 응답 구조 확인용
         setNotices(data);
       } else {
-        setNotices([]); // 방어 처리
+        setNotices([]);
       }
     });
   }, [clubName]);
@@ -60,7 +61,6 @@ const NoticeListPage = () => {
         )}
       </div>
 
-      {/* 🔽 스크롤 가능한 영역 */}
       <div
         style={{
           backgroundColor: '#f3f6f2',
@@ -73,47 +73,50 @@ const NoticeListPage = () => {
       >
         <ul style={{ listStyle: 'none', paddingLeft: 0, margin: 0 }}>
           {Array.isArray(notices) && notices.length > 0 ? (
-            notices.map((notice) => (
-              <li
-                key={notice.id}
-                style={{
-                  marginBottom: '0.5rem',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center'
-                }}
-              >
-                <Link
-                  to={{
-                    pathname: isAdmin
-                      ? `/adminnotice/${encodeURIComponent(clubName)}/${notice.id}`
-                      : `/notice/${encodeURIComponent(clubName)}/${notice.id}`,
-                    state: isAdmin ? { fromAdmin: true } : {},
+            notices.map((notice) => {
+              console.log("📄 개별 공지:", notice); // ✅ 핵심 디버깅 포인트
+              return (
+                <li
+                  key={notice.id}
+                  style={{
+                    marginBottom: '0.5rem',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center'
                   }}
-                  style={{ flex: 1, textDecoration: 'underline', color: '#2563eb' }}
                 >
-                  {notice.title}
-                </Link>
-
-                {isAdmin && (
-                  <button
-                    onClick={() => handleDelete(notice.id)}
-                    style={{
-                      marginLeft: '0.5rem',
-                      backgroundColor: '#ef4444',
-                      color: 'white',
-                      border: 'none',
-                      borderRadius: '4px',
-                      padding: '0.3rem 0.6rem',
-                      cursor: 'pointer',
-                      fontSize: '0.8rem'
+                  <Link
+                    to={{
+                      pathname: isAdmin
+                        ? `/adminnotice/${encodeURIComponent(clubName)}/${notice.id}`
+                        : `/notice/${encodeURIComponent(clubName)}/${notice.id}`,
+                      state: isAdmin ? { fromAdmin: true } : {},
                     }}
+                    style={{ flex: 1, textDecoration: 'underline', color: '#2563eb' }}
                   >
-                    삭제
-                  </button>
-                )}
-              </li>
-            ))
+                    {notice.title}
+                  </Link>
+
+                  {isAdmin && (
+                    <button
+                      onClick={() => handleDelete(notice.id)}
+                      style={{
+                        marginLeft: '0.5rem',
+                        backgroundColor: '#ef4444',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '4px',
+                        padding: '0.3rem 0.6rem',
+                        cursor: 'pointer',
+                        fontSize: '0.8rem'
+                      }}
+                    >
+                      삭제
+                    </button>
+                  )}
+                </li>
+              );
+            })
           ) : (
             <li>공지사항이 없습니다.</li>
           )}
@@ -124,3 +127,4 @@ const NoticeListPage = () => {
 };
 
 export default NoticeListPage;
+
