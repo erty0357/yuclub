@@ -20,6 +20,7 @@ const NoticeDetailPage = () => {
   useEffect(() => {
     getNoticeDetail(clubName, noticeId)
       .then((data) => {
+        console.log("📦 가져온 공지 데이터:", data);
         if (!data || !data.title || !data.content) {
           throw new Error("공지사항 데이터가 올바르지 않습니다.");
         }
