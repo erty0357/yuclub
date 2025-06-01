@@ -17,7 +17,7 @@ const ClubMemberPage = () => {
 
   useEffect(() => {
   const role = localStorage.getItem('userRole');
-  axios.get(`/api/clubs/${encodeURIComponent(clubName)}?role=${role}`)
+  axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/clubs/${encodeURIComponent(clubName)}/members/status`, {
     .then(res => {
       setClubData(res.data);
     })
