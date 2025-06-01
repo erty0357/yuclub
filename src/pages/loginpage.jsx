@@ -18,6 +18,8 @@ function LoginPage() {
 
       const role = res.data.role;
 
+      console.log("✅ 로그인 성공, role:", role);
+
       localStorage.setItem('token', 'true');
       localStorage.setItem('userRole', role);
       localStorage.setItem('user', JSON.stringify({ userId: id }));
