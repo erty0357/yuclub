@@ -19,7 +19,7 @@ export default function RegisterPage() {
 
   const handleSubmit = async () => {
     try {
-      await axios.post('/api/users/join', form);
+      await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/users/join`, form);
       alert('회원가입이 완료되었습니다.');
       navigate('/');
     } catch (err) {
