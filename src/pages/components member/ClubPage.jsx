@@ -146,7 +146,7 @@ export default function ClubPage({
   const handleLeaveClub = async () => {
     try {
       const user = JSON.parse(localStorage.getItem("user"));
-      await axios.delete("/api/clubs/clubmembers", {
+      await axios.delete(`${import.meta.env.VITE_API_BASE_URL}/api/clubs/clubmembers`, {
         params: {
           clubName: clubName,
           userId: user.userId
