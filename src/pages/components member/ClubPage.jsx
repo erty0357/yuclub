@@ -94,7 +94,7 @@ export default function ClubPage({
       }
 
       try {
-        await axios.post('/api/join-requests', form); // 🚀 백엔드로 POST 요청
+        await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/join-requests`, form); // 🚀 백엔드로 POST 요청
         alert('가입 신청이 완료되었습니다!');
         setForm({clubName: form.clubName, name: '', grade: '', major: '', phone: '', motivation: '' });
         onClose();
