@@ -32,7 +32,7 @@ const ClubMemberPage = () => {
     const user = JSON.parse(localStorage.getItem('user'));
     if (!user || !user.userId) return;
 
-    axios.get('/api/clubs/${encodeURIComponent(clubName)}/members/status', {
+    axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/clubs/${encodeURIComponent(clubName)}?role=${role}`)
       params: {
         clubName: decoded,
         userId: user.userId
