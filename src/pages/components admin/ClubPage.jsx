@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import SockJS from 'sockjs-client';
 import { Client } from '@stomp/stompjs';
 import { useNavigate } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import NoticeListPage from "../components member/NoticeListPage";
 
 export default function ClubPage({
@@ -13,9 +14,9 @@ export default function ClubPage({
   fee,
   interview,
   officers = [],
-  notices,
-  members = [],
+  notices = [],
   theme = { titleColor: '#ffffff', subtitleColor: '#cccccc' },
+  members = [],
 }) {
   const navigate = useNavigate();
   const [notifications, setNotifications] = useState([]);
@@ -34,6 +35,7 @@ export default function ClubPage({
     const client = new Client({
       webSocketFactory: () => socket,
       onConnect: () => {
+        const normalizedClubName = clubName.toLowerCase().replace(/\s+/g, '-');
         console.log(`✅ WebSocket 연결됨: ${normalizedClubName}`);
 
         client.subscribe(`/topic/notifications/${normalizedClubName}`, (message) => {
@@ -68,9 +70,12 @@ export default function ClubPage({
         <img src={bannerImg} alt="배너 이미지"
           style={{ width: '100%', height: '300px', objectFit: 'cover', borderRadius: '12px' }} />
         <div style={{
-          position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
-          backgroundColor: 'rgba(0,0,0,0.4)', display: 'flex', flexDirection: 'column',
-          justifyContent: 'center', alignItems: 'center', borderRadius: '12px', color: 'white', zIndex: 1
+          position: 'absolute',
+          top: 0, left: 0, right: 0, bottom: 0,
+          backgroundColor: 'rgba(0,0,0,0.4)',
+          display: 'flex', flexDirection: 'column',
+          justifyContent: 'center', alignItems: 'center',
+          borderRadius: '12px', color: 'white', zIndex: 1
         }}>
           <h1 style={{ fontSize: '4.5rem', color: theme.titleColor }}>{clubName}</h1>
           <p style={{ fontSize: '1.2rem', color: theme.subtitleColor }}>{subtitle}</p>
@@ -78,11 +83,14 @@ export default function ClubPage({
       </div>
 
       <div style={{ display: 'flex', gap: '2rem', marginTop: '2rem' }}>
+        {/* 왼쪽 박스 */}
         <div style={{ flex: 1, backgroundColor: '#f3f4f6', padding: '1.5rem', borderRadius: '12px', border: '1px solid #ccc' }}>
           <h2>📌 모집대상: <span style={{ fontWeight: 'normal' }}>영남대 재학생</span></h2>
           <h3 style={{ marginTop: '1rem' }}>📅 주요활동 및 행사</h3>
           <ul>
-            {Array.isArray(activities) && activities.map((item, idx) => <li key={idx}>- {item}</li>)}
+            {Array.isArray(activities) && activities.map((item, idx) => (
+              <li key={idx}>- {item}</li>
+            ))}
           </ul>
           <h3 style={{ marginTop: '1rem' }}>❓ 질문</h3>
           {Array.isArray(faq) && faq.map((item, idx) => (
@@ -97,15 +105,33 @@ export default function ClubPage({
           <p>{interview}</p>
         </div>
 
+        {/* 오른쪽 박스 */}
         <div style={{ flex: 1, backgroundColor: 'white', padding: '1.5rem', borderRadius: '12px', border: '1px solid #ccc' }}>
           <div style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', marginBottom: '1rem' }}>
             <button
-              style={{ backgroundColor: '#4ade80', borderRadius: '8px', padding: '0.5rem 1rem', fontWeight: 'bold', border: 'none' }}
-              onClick={() => navigate(`/adminpage/${clubName}/agreement`)}>
+              style={{
+                backgroundColor: '#4ade80',
+                borderRadius: '8px',
+                padding: '0.5rem 1rem',
+                fontWeight: 'bold',
+                border: 'none',
+              }}
+              onClick={() => navigate(`/adminpage/${clubName}/agreement`)}
+            >
               🖋 동아리 가입 승인
             </button>
             {notifications.length > 0 && (
-              <span style={{ position: 'absolute', top: '-6px', right: '-10px', backgroundColor: 'red', color: 'white', borderRadius: '9999px', padding: '2px 6px', fontSize: '0.75rem', fontWeight: 'bold' }}>
+              <span style={{
+                position: 'absolute',
+                top: '-6px',
+                right: '-10px',
+                backgroundColor: 'red',
+                color: 'white',
+                borderRadius: '9999px',
+                padding: '2px 6px',
+                fontSize: '0.75rem',
+                fontWeight: 'bold'
+              }}>
                 {notifications.length}
               </span>
             )}
@@ -140,4 +166,5 @@ export default function ClubPage({
     </div>
   );
 }
+
 
