@@ -41,7 +41,8 @@ const ClubAdminPage = () => {
     return <div>존재하지 않는 동아리입니다: {decoded}</div>;
   }
 
-  return <ClubPage {...data} members={members} />;
+  return <ClubPage {...data} members={Array.isArray(members) ? members : []} />;
+
 };
 
 export default ClubAdminPage;
