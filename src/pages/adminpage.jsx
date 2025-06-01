@@ -8,7 +8,7 @@ import NoticeListPage from './components member/NoticeListPage';
 const ClubAdminPage = () => {
   const { clubName } = useParams();
   const [clubData, setClubData] = useState(null);
-  const decoded = decodeURIComponent(clubName);
+  const decoded = decodeURIComponent(clubName).trim();
   const data = clubAdminDataMap[decoded];
   const [members, setMembers] = useState([]);
 
