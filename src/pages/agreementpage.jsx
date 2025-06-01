@@ -11,7 +11,7 @@ export default function JoinRequestListPage() {
 
 const handleApprove = async (request) => {
   try {
-    await axios.post(`/api/join-requests/${request.clubName}/approve`, {
+    await axios.post(`${API_URL}/api/join-requests/${request.clubName}/approve`, {
       clubName: request.clubName,
       name: request.name,
       grade: request.grade,
@@ -37,7 +37,7 @@ const handleApprove = async (request) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`/api/join-requests/${clubName}`);
+        const res = await axios.get(`${API_URL}/api/join-requests/${encodeURIComponent(clubName)}`);
         setJoinRequests(res.data);
       } catch (err) {
         console.error(err);
