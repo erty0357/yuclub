@@ -1,5 +1,6 @@
 // src/App.jsx
 import { Routes, Route, Navigate } from 'react-router-dom';
+console.log("✅ 최신 App.jsx 렌더됨");
 
 import LoginPage from './pages/loginpage';
 import RegisterPage from './pages/registerpage';
