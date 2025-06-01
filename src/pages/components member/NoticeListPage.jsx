@@ -14,7 +14,7 @@ const NoticeListPage = () => {
     console.log("📦 요청된 clubName:", clubName);
     getNotices(clubName).then((data) => {
       if (Array.isArray(data)) {
-        console.log("📬 받은 공지 배열:", data); // 🔍 전체 응답 구조 확인용
+        console.log("📬 받은 공지 배열:", data);
         setNotices(data);
       } else {
         setNotices([]);
@@ -73,11 +73,15 @@ const NoticeListPage = () => {
       >
         <ul style={{ listStyle: 'none', paddingLeft: 0, margin: 0 }}>
           {Array.isArray(notices) && notices.length > 0 ? (
-            notices.map((notice) => {
-              console.log("📄 개별 공지:", notice); // ✅ 핵심 디버깅 포인트
+            notices.map((notice, index) => {
+              if (!notice || !notice.title) {
+                console.warn(`❌ 잘못된 notice 데이터 at index ${index}:`, notice);
+                return null;
+              }
+
               return (
                 <li
-                  key={notice.id}
+                  key={notice.id ?? index}
                   style={{
                     marginBottom: '0.5rem',
                     display: 'flex',
@@ -127,4 +131,5 @@ const NoticeListPage = () => {
 };
 
 export default NoticeListPage;
+
 
