@@ -18,7 +18,11 @@ const ClubMemberPage = () => {
     const role = localStorage.getItem('userRole');
 
     axios
-      .get(`${import.meta.env.VITE_API_BASE_URL}/api/clubs/${encodeURIComponent(clubName)}/members/status`)
+      .get(`${import.meta.env.VITE_API_BASE_URL}/api/clubs/${encodeURIComponent(clubName)}/members/status`){
+        params: {
+          userId: user.userId  // ✅ 이거 안 넣어서 400 뜬 거임
+        }
+      })
       .then(res => {
         setClubData(res.data);
       })
