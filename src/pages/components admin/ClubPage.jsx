@@ -31,14 +31,14 @@ export default function ClubPage({
         setNotifications(initial);
       });
 
-    const socket = new SockJS(${import.meta.env.VITE_API_BASE_URL}/ws);
+    const socket = new SockJS('${import.meta.env.VITE_API_BASE_URL}/ws');
     const client = new Client({
       webSocketFactory: () => socket,
       onConnect: () => {
         const normalizedClubName = clubName.toLowerCase().replace(/\s+/g, '-');
-        console.log(✅ WebSocket 연결됨: ${normalizedClubName});
+        console.log('✅ WebSocket 연결됨: ${normalizedClubName}');
 
-        client.subscribe(/topic/notifications/${normalizedClubName}, (message) => {
+        client.subscribe('/topic/notifications/${normalizedClubName}', (message) => {
           try {
             const payload = JSON.parse(message.body);
             setNotifications(prev => {
@@ -46,7 +46,7 @@ export default function ClubPage({
               return [...prev, payload.content];
             });
 
-            fetch(${import.meta.env.VITE_API_BASE_URL}/api/join-requests/${normalizedClubName})
+            fetch('${import.meta.env.VITE_API_BASE_URL}/api/join-requests/${normalizedClubName}')
               .then(res => res.json())
               .then(data => {
                 const updated = data.map(req => req.name + "님이 가입 신청서를 보냈습니다!");
@@ -117,7 +117,7 @@ export default function ClubPage({
                 fontWeight: 'bold',
                 border: 'none',
               }}
-              onClick={() => navigate(/adminpage/${clubName}/agreement)}
+              onClick={() => navigate('/adminpage/${clubName}/agreement')}
             >
               🖋 동아리 가입 승인
             </button>
