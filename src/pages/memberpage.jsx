@@ -11,16 +11,37 @@ const ClubMemberPage = () => {
 
   const [clubData, setClubData] = useState(null);
   const [isMember, setIsMember] = useState(false);
-  const [checked, setChecked] = useState(false); // 로딩 상태
 
-  // ✅ 동아리 정보 불러오기
+  // ✅ 1. 가입 여부 확인 (userId를 이용)
   useEffect(() => {
-    const role = localStorage.getItem('userRole');
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (!user || !user.userId) return;
 
     axios
-      .get(`${import.meta.env.VITE_API_BASE_URL}/api/clubs/${encodeURIComponent(clubName)}/members/status`){
+      .get(`${import.meta.env.VITE_API_BASE_URL}/api/clubs/${encodeURIComponent(clubName)}`, {
         params: {
-          userId: user.userId  // ✅ 이거 안 넣어서 400 뜬 거임
+          clubName: decoded,
+          userId: user.userId,
+          role: localStorage.getItem('userRole'),
+        }
+      })
+      .then(res => {
+        setIsMember(res.data.isMember);
+      })
+      .catch(err => {
+        console.error('가입 여부 확인 실패:', err);
+      });
+  }, [decoded, clubName]);
+
+  // ✅ 2. 동아리 정보 불러오기 (userId가 필요한 경우 포함)
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (!user || !user.userId) return;
+
+    axios
+      .get(`${import.meta.env.VITE_API_BASE_URL}/api/clubs/${encodeURIComponent(clubName)}/members/status`, {
+        params: {
+          userId: user.userId,
         }
       })
       .then(res => {
@@ -32,40 +53,15 @@ const ClubMemberPage = () => {
       });
   }, [clubName]);
 
-  // ✅ 가입 여부 확인 API 호출
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    const role = localStorage.getItem('userRole');
-    if (!user || !user.userId) return;
-
-    axios
-      .get(`${import.meta.env.VITE_API_BASE_URL}/api/clubs/${encodeURIComponent(clubName)}`, {
-        params: {
-          clubName: decoded,
-          userId: user.userId,
-          role: role
-        }
-      })
-      .then(res => {
-        setIsMember(res.data.isMember);
-      })
-      .catch(err => {
-        console.error('가입 여부 확인 실패:', err);
-      })
-      .finally(() => {
-        setChecked(true);
-      });
-  }, [decoded, clubName]);
-
+  // ✅ 예외 처리
+  if (!data) return <div>존재하지 않는 동아리입니다: {decoded}</div>;
   if (!clubData) return <div>로딩 중...</div>;
 
-  if (!data) {
-    return <div>존재하지 않는 동아리입니다: {decoded}</div>;
-  }
-
+  // ✅ 최종 렌더링
   return <ClubPage {...data} isMember={isMember} />;
 };
 
 export default ClubMemberPage;
+
 
 
