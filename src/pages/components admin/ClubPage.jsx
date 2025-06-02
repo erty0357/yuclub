@@ -152,7 +152,7 @@ export default function ClubPage({
           </div>
 
           <div style={{ backgroundColor: '#eef1ec', padding: '1rem', marginTop: '1rem', borderRadius: '8px' }}>
-            <NoticeListPage notices={notices} />
+            <NoticeListPage />
           </div>
 
           <div style={{ backgroundColor: '#fffbe6', padding: '1rem', marginTop: '1rem', borderRadius: '8px', border: '1px dashed #facc15' }}>
