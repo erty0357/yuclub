@@ -24,21 +24,21 @@ export default function ClubPage({
   useEffect(() => {
     const normalizedClubName = clubName.toLowerCase().replace(/\s+/g, '-');
 
-    fetch(${import.meta.env.VITE_API_BASE_URL}/api/join-requests/${normalizedClubName})
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/api/join-requests/${normalizedClubName}`)
       .then(res => res.json())
       .then(data => {
         const initial = data.map(req => req.name + "님이 가입 신청서를 보냈습니다!");
         setNotifications(initial);
       });
 
-    const socket = new SockJS('${import.meta.env.VITE_API_BASE_URL}/ws');
+    const socket = new SockJS(`${import.meta.env.VITE_API_BASE_URL}/ws`);
     const client = new Client({
       webSocketFactory: () => socket,
       onConnect: () => {
         const normalizedClubName = clubName.toLowerCase().replace(/\s+/g, '-');
-        console.log('✅ WebSocket 연결됨: ${normalizedClubName}');
+        console.log(`✅ WebSocket 연결됨: ${normalizedClubName}`);
 
-        client.subscribe('/topic/notifications/${normalizedClubName}', (message) => {
+        client.subscribe(`/topic/notifications/${normalizedClubName}`, (message) => {
           try {
             const payload = JSON.parse(message.body);
             setNotifications(prev => {
@@ -46,7 +46,7 @@ export default function ClubPage({
               return [...prev, payload.content];
             });
 
-            fetch('${import.meta.env.VITE_API_BASE_URL}/api/join-requests/${normalizedClubName}')
+            fetch(`${import.meta.env.VITE_API_BASE_URL}/api/join-requests/${normalizedClubName}`)
               .then(res => res.json())
               .then(data => {
                 const updated = data.map(req => req.name + "님이 가입 신청서를 보냈습니다!");
@@ -93,13 +93,12 @@ export default function ClubPage({
             ))}
           </ul>
           <h3 style={{ marginTop: '1rem' }}>❓ 질문</h3>
-          {(Array.isArray(faq) ? faq : []).map((item, idx) => (
+          {Array.isArray(faq) && faq.map((item, idx) => (
             <div key={idx} style={{ marginBottom: '1rem' }}>
               <p style={{ fontWeight: 'bold' }}>- {item.q}</p>
               <p style={{ color: '#4b5563', whiteSpace: 'pre-line' }}>{item.a}</p>
             </div>
           ))}
-
           <h3>💰 회비</h3>
           <p>{fee}</p>
           <h3>📝 면접</h3>
@@ -117,7 +116,7 @@ export default function ClubPage({
                 fontWeight: 'bold',
                 border: 'none',
               }}
-              onClick={() => navigate('/adminpage/${clubName}/agreement')}
+              onClick={() => navigate(`/adminpage/${clubName}/agreement`)}
             >
               🖋 동아리 가입 승인
             </button>
@@ -167,6 +166,7 @@ export default function ClubPage({
     </div>
   );
 }
+
 
 
 
