@@ -93,12 +93,13 @@ export default function ClubPage({
             ))}
           </ul>
           <h3 style={{ marginTop: '1rem' }}>❓ 질문</h3>
-          {(Array.isArray(members) ? members : []).map((member, idx) => (
+          {(Array.isArray(faq) ? faq : []).map((item, idx) => (
             <div key={idx} style={{ marginBottom: '1rem' }}>
               <p style={{ fontWeight: 'bold' }}>- {item.q}</p>
               <p style={{ color: '#4b5563', whiteSpace: 'pre-line' }}>{item.a}</p>
             </div>
           ))}
+
           <h3>💰 회비</h3>
           <p>{fee}</p>
           <h3>📝 면접</h3>
